@@ -7,7 +7,6 @@ import 'package:fyp_renterra_frontend/views/renterView/auth/renter_signUp_screen
 import 'package:fyp_renterra_frontend/views/renterView/dashboard/renter_dashboard_screen.dart';
 import 'package:fyp_renterra_frontend/views/userView/auth/user_login_screen.dart';
 import 'package:fyp_renterra_frontend/views/userView/auth/user_signUp_screen.dart';
-import 'package:fyp_renterra_frontend/views/userView/dashboard/user_dashboard_screen.dart';
 
 class AppPages {
   static Map<String, WidgetBuilder> getRoutes() {

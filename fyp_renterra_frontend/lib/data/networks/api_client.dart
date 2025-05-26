@@ -2,7 +2,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ApiClient {
-  static final String ipUrl = '10.0.130.74';
+  // static final String ipUrl = '192.168.0.34';
+  // 192.168.186.226
+  static final String ipUrl = '192.168.186.226';
   static final String baseUrl = "http://$ipUrl:3000/api/v1";
 
   // Common POST requests

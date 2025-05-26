@@ -238,7 +238,10 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                             Navigator.pushNamed(
                                 context, RoutesName.userLoginScreen);
                           },
-                          child: const Text("Sign In"),
+                          child: const Text(
+                            "Sign In",
+                            style: TextStyle(color: blueColor),
+                          ),
                         ),
                       ],
                     ),

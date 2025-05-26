@@ -3,7 +3,6 @@ import 'package:fyp_renterra_frontend/core/constants/app_colors.dart';
 import 'package:fyp_renterra_frontend/core/utlis/validator.dart';
 import 'package:fyp_renterra_frontend/generic_widgets/custom_app_button.dart';
 import 'package:fyp_renterra_frontend/generic_widgets/custom_input_field_widget.dart';
-import 'package:fyp_renterra_frontend/generic_widgets/custom_loading_overlay.dart';
 import 'package:fyp_renterra_frontend/routes/route_names.dart';
 import 'package:fyp_renterra_frontend/viewModel/user_viewModel/user_auth_viewModel.dart';
 import 'package:fyp_renterra_frontend/views/userView/auth/user_signUp_screen.dart';
@@ -92,7 +91,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                       icon: Icons.email_outlined,
                       inputType: TextInputType.emailAddress,
                       validation_text: "Email is required",
-                       customValidator: Validator.validateEmail,
+                      customValidator: Validator.validateEmail,
                     ),
                     ContainerText(stringText: "Password"),
                     CustomInputField(
@@ -101,7 +100,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                       icon: Icons.lock_outline,
                       inputType: TextInputType.visiblePassword,
                       validation_text: "Password is required",
-                       customValidator: Validator.validatePassword,
+                      customValidator: Validator.validatePassword,
                     ),
                     const SizedBox(height: 10),
                     CustomAppButton(
@@ -137,7 +136,10 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                             Navigator.pushNamed(
                                 context, RoutesName.userSignUpScreen);
                           },
-                          child: const Text("Sign Up"),
+                          child: const Text(
+                            "Sign Up",
+                            style: TextStyle(color: blueColor),
+                          ),
                         ),
                       ],
                     ),

@@ -7,6 +7,8 @@ import 'package:fyp_renterra_frontend/views/renterView/dashboard/widgets/profile
 class RenterProfileScreen extends StatelessWidget {
   const RenterProfileScreen({super.key});
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfileViewModel>(
