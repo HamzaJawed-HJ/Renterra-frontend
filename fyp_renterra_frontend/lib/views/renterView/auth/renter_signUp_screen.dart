@@ -229,13 +229,14 @@ class _RenterSignUpScreenState extends State<RenterSignUpScreen> {
 
 class ContainerText extends StatelessWidget {
   final String stringText;
-  const ContainerText({super.key, required this.stringText});
+  final EdgeInsets? padding;
+  const ContainerText({super.key, this.padding, required this.stringText});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
-      padding: const EdgeInsets.only(left: 20),
+      padding: padding ?? const EdgeInsets.only(left: 20),
       child: Text(
         stringText,
         style: const TextStyle(

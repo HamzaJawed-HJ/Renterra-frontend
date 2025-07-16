@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fyp_renterra_frontend/views/renterView/dashboard/booking_view/my_booking_screen.dart';
 import 'package:fyp_renterra_frontend/views/renterView/dashboard/renter_home_screen.dart';
-import 'package:fyp_renterra_frontend/views/userView/dashboard/user_chat_screen.dart';
-import 'package:fyp_renterra_frontend/views/userView/dashboard/user_profile_screen.dart';
+import 'package:fyp_renterra_frontend/views/ownerView/dashboard/user_chat_screen.dart';
+import 'package:fyp_renterra_frontend/views/ownerView/dashboard/user_profile_screen.dart';
 
 class RenterDashboardViewModel with ChangeNotifier {
   int _selectedIndex = 0; // To track the selected bottom nav item

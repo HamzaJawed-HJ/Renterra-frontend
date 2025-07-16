@@ -5,7 +5,7 @@ import 'package:fyp_renterra_frontend/generic_widgets/custom_app_button.dart';
 import 'package:fyp_renterra_frontend/generic_widgets/custom_input_field_widget.dart';
 import 'package:fyp_renterra_frontend/routes/route_names.dart';
 import 'package:fyp_renterra_frontend/viewModel/user_viewModel/user_auth_viewModel.dart';
-import 'package:fyp_renterra_frontend/views/userView/auth/user_signUp_screen.dart';
+import 'package:fyp_renterra_frontend/views/ownerView/auth/user_signUp_screen.dart';
 import 'package:provider/provider.dart';
 
 class UserLoginScreen extends StatefulWidget {

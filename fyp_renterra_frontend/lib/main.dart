@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fyp_renterra_frontend/routes/app_router.dart';
 import 'package:fyp_renterra_frontend/routes/route_names.dart';
+import 'package:fyp_renterra_frontend/viewModel/renter_viewModel/ProductViewModel.dart';
 import 'package:fyp_renterra_frontend/viewModel/renter_viewModel/renter_auth_viewModel.dart';
 import 'package:fyp_renterra_frontend/viewModel/renter_viewModel/renter_dashboard_viewModel.dart';
 import 'package:fyp_renterra_frontend/viewModel/renter_viewModel/renter_profile_viewModel.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProfileViewModel()),
         ChangeNotifierProvider(create: (context) => RenterDashboardViewModel()),
         ChangeNotifierProvider(create: (context) => UserDashboardViewModel()),
+         ChangeNotifierProvider(create: (context) => ProductViewModel()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

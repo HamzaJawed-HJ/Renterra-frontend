@@ -38,24 +38,24 @@ class _BottomNavBarState extends State<BottomNavBar> {
               ? const CircleAvatar(
                   backgroundColor: blueColor,
                   child: Icon(
-                    Icons.calendar_month_outlined,
+                    Icons.add_box_outlined,
                     color: whiteColor,
                   ),
                 )
-              : Icon(Icons.calendar_month_outlined),
-          label: 'Booking',
+              : const Icon(Icons.add_box_outlined),
+          label: 'Add',
         ),
         BottomNavigationBarItem(
           icon: widget.index == 2
               ? const CircleAvatar(
                   backgroundColor: blueColor,
                   child: Icon(
-                    Icons.chat_outlined,
+                    Icons.calendar_month_outlined,
                     color: whiteColor,
                   ),
                 )
-              : const Icon(Icons.chat_outlined),
-          label: 'Chat',
+              : Icon(Icons.calendar_month_outlined),
+          label: 'Requests',
         ),
         BottomNavigationBarItem(
           icon: widget.index == 3

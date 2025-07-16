@@ -69,19 +69,15 @@ class UserAuthViewModel extends ChangeNotifier {
       _setLoading(false);
 
       if (response['success']) {
-//        HelperFunctions.showSuccessSnackbar(context, 'User LogIn successfully');
 
         // Create a User object from the response
         _user = User.fromJson(response);
-        //    print("CNIC: ${_user?.cnic.toString()}");
         notifyListeners();
 
-        // Save user data and tokens to session
         await SessionManager.saveAccessToken(_user!.accessToken.toString());
         await SessionManager.saveRefreshToken(_user!.refreshToken.toString());
         await SessionManager.saveUserInfo(_user!);
 
-        // Verify stored data (optional debugging)
         String? accessToken = await SessionManager.getAccessToken();
         String? refreshToken = await SessionManager.getRefreshToken();
         Map<String, String?> userInfo = await SessionManager.getUserInfo();
@@ -95,47 +91,13 @@ class UserAuthViewModel extends ChangeNotifier {
         // Navigate to dashboard
         Navigator.pushReplacementNamed(context, RoutesName.UserDashboardScreen);
       } else {
-        _errorMessage = response['message'] ?? "An unexpected error occurred";
+        print("test " + response['message']);
 
-        // Handle status codes with user-friendly messages
-        int statusCode = response['statusCode'] ??
-            400; // Default to 500 if no statusCode is found
-
-        switch (statusCode) {
-          case 400:
-            _errorMessage = "Invalid request. Please check your inputs.";
-            break;
-          case 401:
-            _errorMessage = "You are not authorized to perform this action.";
-            break;
-          case 403:
-            _errorMessage =
-                "You do not have permission to access this resource.";
-            break;
-          case 404:
-            _errorMessage =
-                response['message'] ?? "The requested resource was not found.";
-            break;
-          case 500:
-            _errorMessage =
-                "Something went wrong on the server. Please try again later.";
-            break;
-          default:
-            // Default message for unexpected errors
-            _errorMessage =
-                response['message'] ?? "An unexpected error occurred.";
-            break;
-        }
-
-        // Show the error message to the user using your helper function
-        HelperFunctions.showErrorSnackbar(context, _errorMessage!);
+        HelperFunctions.showErrorSnackbar(context, response['message']);
         notifyListeners();
       }
     } catch (error) {
-      // Assuming error is a string with a JSON structure like the one you mentioned
-      // HelperFunctions.showErrorSnackbar(
-      //     context, error.toString()); // Show user-friendly error message
-      _errorMessage = "Login failed. Please try again.";
+       _errorMessage = "Login failed. Please try again.";
       _setLoading(false);
       notifyListeners();
     }

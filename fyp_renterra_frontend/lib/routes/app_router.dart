@@ -5,8 +5,9 @@ import 'package:fyp_renterra_frontend/views/onboardingView/splash_screen.dart';
 import 'package:fyp_renterra_frontend/views/renterView/auth/renter_login_screen.dart';
 import 'package:fyp_renterra_frontend/views/renterView/auth/renter_signUp_screen.dart';
 import 'package:fyp_renterra_frontend/views/renterView/dashboard/renter_dashboard_screen.dart';
-import 'package:fyp_renterra_frontend/views/userView/auth/user_login_screen.dart';
-import 'package:fyp_renterra_frontend/views/userView/auth/user_signUp_screen.dart';
+import 'package:fyp_renterra_frontend/views/ownerView/auth/user_login_screen.dart';
+import 'package:fyp_renterra_frontend/views/ownerView/auth/user_signUp_screen.dart';
+import 'package:fyp_renterra_frontend/views/ownerView/dashboard/user_dashboard_screen.dart';
 
 class AppPages {
   static Map<String, WidgetBuilder> getRoutes() {
@@ -28,7 +29,7 @@ class AppPages {
 
       //renter Dashboard
 
-      RoutesName.renterDashboardScreen: (context) => RenterDashboardScreen(),
+      RoutesName.renterDashboardScreen: (context) => UserDashboardScreen(),
 
 //User Dashboard
       RoutesName.UserDashboardScreen: (context) => RenterDashboardScreen(),

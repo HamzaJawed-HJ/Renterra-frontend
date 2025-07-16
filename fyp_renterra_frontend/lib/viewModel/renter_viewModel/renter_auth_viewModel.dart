@@ -73,7 +73,6 @@ class RenterAuthViewModel extends ChangeNotifier {
       _setLoading(false);
 
       if (response['success']) {
-//        HelperFunctions.showSuccessSnackbar(context, 'User LogIn successfully');
 
         // Create a User object from the response
         renterDetail = RenterModel.fromJson(response);
@@ -102,16 +101,14 @@ class RenterAuthViewModel extends ChangeNotifier {
         Navigator.pushReplacementNamed(
             context, RoutesName.renterDashboardScreen);
       } else {
-        _errorMessage = response['message'];
+        print("test " + response['message']);
 
-        _errorMessage = "Invalid request. Please check your inputs.";
-        HelperFunctions.showErrorSnackbar(context, _errorMessage!);
+        HelperFunctions.showErrorSnackbar(context, response['message']);
         notifyListeners();
       }
     } catch (error) {
-      // Assuming error is a string with a JSON structure like the one you mentioned
       HelperFunctions.showErrorSnackbar(
-          context, error.toString()); // Show user-friendly error message
+          context, error.toString());
       _errorMessage = "Login failed. Please try again.";
       _setLoading(false);
       notifyListeners();

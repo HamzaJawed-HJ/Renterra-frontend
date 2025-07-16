@@ -166,41 +166,41 @@ class RenterHomeScreen extends StatelessWidget {
                         ]),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
-                  const Text(
-                    "Featured Cars",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
+                  // const Text(
+                  //   "Featured Cars",
+                  //   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  // ),
                   const SizedBox(
                     height: 6,
                   ),
-                  SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: featuredcarData.map((car) {
-                          return CarCard(
-                            imageUrl: car['imageUrl'],
-                            title: car['title'],
-                            variant: car['variant'],
-                            city: car['city'],
-                            price: car['price'],
-                            isFeatured: car['isFeatured'],
-                            isInsured: car['isInsured'],
-                          );
-                        }).toList(),
-                      )),
+                  // SingleChildScrollView(
+                  //     scrollDirection: Axis.horizontal,
+                  //     child: Row(
+                  //       children: featuredcarData.map((car) {
+                  //         return CarCard(
+                  //           imageUrl: car['imageUrl'],
+                  //           title: car['title'],
+                  //           variant: car['variant'],
+                  //           city: car['city'],
+                  //           price: car['price'],
+                  //           isFeatured: car['isFeatured'],
+                  //           isInsured: car['isInsured'],
+                  //         );
+                  //       }).toList(),
+                  //     )),
                   const SizedBox(
                     height: 10,
                   ),
-                  const Text(
-                    "Rental Categories",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  CategorySelector(),
+                  // const Text(
+                  //   "Rental Categories",
+                  //   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  // ),
+                  // const SizedBox(
+                  //   height: 14,
+                  // ),
+                  // CategorySelector(),
                   const SizedBox(
                     height: 10,
                   ),

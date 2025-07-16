@@ -4,7 +4,7 @@ import 'dart:convert';
 class ApiClient {
   // static final String ipUrl = '192.168.0.34';
   // 192.168.186.226
-  static final String ipUrl = '192.168.186.226';
+  static final String ipUrl = '192.168.0.37';
   static final String baseUrl = "http://$ipUrl:3000/api/v1";
 
   // Common POST requests
@@ -25,8 +25,12 @@ class ApiClient {
         print(response.body.toString());
         return jsonDecode(response.body);
       } else {
-        print('Error: ${response.statusCode}, ${response.body}');
-        return {'success': false, 'message': 'Error: ${response.statusCode}'};
+        final errorData = jsonDecode(response.body);
+        return {
+          'success': false,
+          'message': errorData['message'],
+          'data': errorData,
+        };
       }
     } catch (e) {
       return {'success': false, 'message': 'An error occurred: $e'};

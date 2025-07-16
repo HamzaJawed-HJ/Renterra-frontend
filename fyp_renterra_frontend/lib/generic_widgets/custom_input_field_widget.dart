@@ -8,23 +8,24 @@ class CustomInputField extends StatelessWidget {
   TextEditingController controller;
   TextInputType inputType;
   FormFieldValidator<String>? customValidator; // Custom validator
+  int? maxLine;
 
-
-  CustomInputField({
-    super.key,
-    required this.title,
-    required this.icon,
-    required this.controller,
-    required this.inputType,
-    required this.validation_text,
-     this.customValidator,
-  });
+  CustomInputField(
+      {super.key,
+      required this.title,
+      required this.icon,
+      required this.controller,
+      required this.inputType,
+      required this.validation_text,
+      this.customValidator,
+      this.maxLine});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
       child: TextFormField(
+        maxLines: maxLine,
         controller: controller,
         decoration: InputDecoration(
           hintText: title,
@@ -51,8 +52,9 @@ class CustomInputField extends StatelessWidget {
           if (value!.isEmpty) {
             return validation_text;
           }
-           if (customValidator != null) {
-            return customValidator!(value); // Use the custom validator if provided
+          if (customValidator != null) {
+            return customValidator!(
+                value); // Use the custom validator if provided
           }
           return null;
         },

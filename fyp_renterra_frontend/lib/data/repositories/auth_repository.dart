@@ -66,7 +66,6 @@ class AuthRepository {
       'email': email,
       'password': password,
     };
-    return await AuthAPI.loginRenter(
-        data); 
+    return await AuthAPI.loginRenter(data);
   }
 }

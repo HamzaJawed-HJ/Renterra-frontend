@@ -1,0 +1,216 @@
+import 'package:flutter/material.dart';
+import 'package:fyp_renterra_frontend/core/utlis/helper_functions.dart';
+import 'package:fyp_renterra_frontend/data/models/product_model.dart';
+import 'package:fyp_renterra_frontend/generic_widgets/custom_input_field_widget.dart';
+import 'package:fyp_renterra_frontend/viewModel/renter_viewModel/ProductViewModel.dart';
+import 'package:fyp_renterra_frontend/views/renterView/auth/renter_signUp_screen.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+
+import 'package:provider/provider.dart';
+
+class AddProductScreen extends StatefulWidget {
+  @override
+  _AddProductScreenState createState() => _AddProductScreenState();
+}
+
+class _AddProductScreenState extends State<AddProductScreen> {
+  File? _image;
+  final picker = ImagePicker();
+  String selectedCategory = '';
+
+  final nameController = TextEditingController();
+  final descriptionController = TextEditingController();
+
+  final priceController = TextEditingController();
+  final rentForDaysController = TextEditingController();
+
+  Future<void> _pickImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _image = File(pickedFile.path);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final productVM = Provider.of<ProductViewModel>(context);
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Add New Product',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue[800],
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20),
+
+            Center(
+              child: GestureDetector(
+                onTap: _pickImage,
+                child: Container(
+                  width: double.infinity,
+                  height: 180,
+                  decoration: BoxDecoration(
+                    color: Colors.blue[50],
+                    border: Border.all(color: Colors.blue),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: _image != null
+                      ? Image.file(_image!, fit: BoxFit.cover)
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.add_a_photo,
+                                size: 40, color: Colors.blue),
+                            SizedBox(height: 10),
+                            Text("Add Product Photo")
+                          ],
+                        ),
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            ContainerText(padding: EdgeInsets.zero, stringText: "Product Name"),
+
+            CustomInputField(
+              title: "Enter product name",
+              controller: nameController,
+              icon: Icons.text_fields_rounded,
+              inputType: TextInputType.text,
+              validation_text: 'Enter Name',
+            ),
+            // TextField(
+            //   controller: nameController,
+            //   decoration: InputDecoration(hintText: 'Enter product name'),
+            // ),
+            SizedBox(height: 20),
+            Text(
+              "Category",
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+            SizedBox(height: 20),
+            Center(
+              child: Wrap(
+                spacing: 20,
+                children: ["Sedans", "SUVs", "MPVs"].map((cat) {
+                  return ChoiceChip(
+                    label: Text(cat),
+                    selected: selectedCategory == cat,
+                    selectedColor: Colors.blue[200],
+                    onSelected: (_) {
+                      setState(() {
+                        selectedCategory = cat;
+                      });
+                    },
+                  );
+                }).toList(),
+              ),
+            ),
+            SizedBox(height: 20),
+            ContainerText(padding: EdgeInsets.zero, stringText: "Description"),
+
+            CustomInputField(
+              maxLine: 4,
+              title: "Enter Description",
+              controller: descriptionController,
+              icon: Icons.donut_large,
+              inputType: TextInputType.text,
+              validation_text: 'Enter Description',
+            ),
+
+            SizedBox(
+              height: 20,
+            ),
+            ContainerText(padding: EdgeInsets.zero, stringText: "Price"),
+
+            CustomInputField(
+              title: "Enter product Price",
+              controller: priceController,
+              icon: Icons.text_fields_rounded,
+              inputType: TextInputType.text,
+              validation_text: 'Enter Price',
+            ),
+
+            SizedBox(
+              height: 20,
+            ),
+
+            ContainerText(
+                padding: EdgeInsets.zero, stringText: "Days for Rent"),
+
+            CustomInputField(
+              title: "Enter Days for rent",
+              controller: rentForDaysController,
+              icon: Icons.text_fields_rounded,
+              inputType: TextInputType.text,
+              validation_text: 'Enter Days',
+            ),
+
+            SizedBox(
+              height: 20,
+            ),
+            InkWell(
+              onTap: () {
+                print("category" + selectedCategory);
+                print("image path" + _image!.path);
+                productVM.setProducts([
+                  Product(
+                    id: '55',
+                    category: selectedCategory,
+                    name: nameController.text.trim(),
+                    description: descriptionController.text.trim(),
+                    price: priceController.text.toString(),
+                    timePeriod: rentForDaysController.text.trim(),
+                    location: 'Europe, USA',
+                    image: _image!.path,
+                  ),
+                ]);
+
+                HelperFunctions.showSuccessSnackbar(
+                    context, 'Product Added Successfully');
+              },
+              child: Container(
+                alignment: Alignment.center,
+                width: double.infinity,
+                height: 55,
+                decoration: BoxDecoration(
+                    color: Colors.blue.shade600,
+                    borderRadius: BorderRadius.circular(14)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.check,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Submit",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
