@@ -4,9 +4,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fyp_renterra_frontend/data/models/product_model.dart';
+import 'package:fyp_renterra_frontend/data/networks/api_client.dart';
 
 class ProductCard extends StatelessWidget {
-  final Product product;
+  final ProductModel product;
   final VoidCallback onView;
   final VoidCallback onEdit;
 
@@ -28,8 +29,8 @@ class ProductCard extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
-            child: Image.file(
-              File(product.image),
+            child: Image.network(
+              '${ApiClient.baseImageUrl}${product.image}',
               height: 160,
               width: double.infinity,
               fit: BoxFit.cover,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fyp_renterra_frontend/core/constants/app_colors.dart';
 
 // ignore: must_be_immutable
@@ -7,7 +8,8 @@ class CustomInputField extends StatelessWidget {
   IconData icon;
   TextEditingController controller;
   TextInputType inputType;
-  FormFieldValidator<String>? customValidator; // Custom validator
+  FormFieldValidator<String>? customValidator;
+  List<TextInputFormatter> ?inputformator; // Custom validator
   int? maxLine;
 
   CustomInputField(
@@ -18,6 +20,7 @@ class CustomInputField extends StatelessWidget {
       required this.inputType,
       required this.validation_text,
       this.customValidator,
+      this.inputformator,
       this.maxLine});
 
   @override
@@ -25,6 +28,7 @@ class CustomInputField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
       child: TextFormField(
+        inputFormatters: inputformator,
         maxLines: maxLine,
         controller: controller,
         decoration: InputDecoration(

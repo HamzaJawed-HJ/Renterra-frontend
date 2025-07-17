@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fyp_renterra_frontend/data/networks/api_client.dart';
 import 'package:fyp_renterra_frontend/viewModel/renter_viewModel/ProductViewModel.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +23,7 @@ class ProductDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             Image.network(
-              product.image,
+              '${ApiClient.baseImageUrl}${product.image}',
               width: double.infinity,
               height: 250,
               fit: BoxFit.cover,

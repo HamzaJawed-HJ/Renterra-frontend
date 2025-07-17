@@ -17,6 +17,7 @@ class AuthRepository {
       'password': password,
       'cnic': cnic,
       'area': area,
+      "role": "renter"
     };
     return await AuthAPI.registerUser(data);
   }
@@ -53,6 +54,7 @@ class AuthRepository {
       'area': area,
       'shopName': shopName,
       'shopAddress': shopAddress,
+      "role": "owner"
     };
     return await AuthAPI.registerRenter(data);
   }

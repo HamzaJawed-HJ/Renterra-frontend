@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fyp_renterra_frontend/core/utlis/validator.dart';
 import 'package:fyp_renterra_frontend/generic_widgets/custom_app_button.dart';
 import 'package:fyp_renterra_frontend/generic_widgets/custom_dropdown.dart';
@@ -149,6 +150,10 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                       controller: _phoneController,
                       icon: Icons.phone,
                       inputType: TextInputType.phone,
+                      inputformator: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(11),
+                      ],
                       validation_text: "Phone number is required",
                       customValidator: Validator.validatePhone,
                     ),
@@ -177,6 +182,10 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                       title: "CNIC Number",
                       controller: _cnicController,
                       icon: Icons.credit_card,
+                      inputformator: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(13),
+                      ],
                       inputType: TextInputType.number,
                       validation_text: "CNIC is required",
                       customValidator: Validator.validateCNIC,

@@ -10,7 +10,6 @@ class RenterModel {
   final String createdAt;
   final String updatedAt;
   final String accessToken;
-  final String refreshToken;
 
   RenterModel({
     required this.email,
@@ -24,28 +23,27 @@ class RenterModel {
     required this.createdAt,
     required this.updatedAt,
     required this.accessToken,
-    required this.refreshToken,
   });
 
-  // Factory constructor to create a User object from a JSON response
+  // Updated factory constructor
   factory RenterModel.fromJson(Map<String, dynamic> json) {
+    final user = json['user'];
+
     return RenterModel(
-      email: json['message']['user']['email'],
-      phoneNumber: json['message']['user']['phoneNumber'],
-      fullName: json['message']['user']['fullName'],
-      cnic: json['message']['user']['cnic'],
-      area: json['message']['user']['area'],
-      role: json['message']['user']['role'],
-      shopName: json['message']['user']['shopName'],
-      shopAddress: json['message']['user']['shopAddress'],
-      createdAt: json['message']['user']['createdAt'],
-      updatedAt: json['message']['user']['updatedAt'],
-      accessToken: json['message']['accessToken'], // Default empty if null
-      refreshToken: json['message']['refreshToken'], // Default empty if null
+      email: user['email'],
+      phoneNumber: user['phoneNumber'],
+      fullName: user['fullName'],
+      cnic: user['cnic'],
+      area: user['area'],
+      role: user['role'],
+      shopName: user['shopName'],
+      shopAddress: user['shopAddress'],
+      createdAt: user['createdAt'],
+      updatedAt: user['updatedAt'],
+      accessToken: json['token'],
     );
   }
 
-  // Convert a User object to JSON for saving purposes (e.g., for SharedPreferences or API request)
   Map<String, dynamic> toJson() {
     return {
       'email': email,
@@ -56,8 +54,9 @@ class RenterModel {
       'role': role,
       'shopName': shopName,
       'shopAddress': shopAddress,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
       'accessToken': accessToken,
-      'refreshToken': refreshToken,
     };
   }
 }

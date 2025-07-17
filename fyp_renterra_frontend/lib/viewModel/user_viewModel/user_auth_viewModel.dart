@@ -42,7 +42,7 @@ class UserAuthViewModel extends ChangeNotifier {
 
     _setLoading(false);
 
-    if (response['success']) {
+    if (response.containsKey('message') && response['product'] != null) {
       HelperFunctions.showSuccessSnackbar(
           context, 'User registered successfully');
       Navigator.pushReplacementNamed(context, RoutesName.userLoginScreen);
@@ -68,22 +68,23 @@ class UserAuthViewModel extends ChangeNotifier {
 
       _setLoading(false);
 
-      if (response['success']) {
-
+      if (response['token'] != null &&
+          response['user'] != null &&
+          response['user']['role'] == 'renter') {
         // Create a User object from the response
         _user = User.fromJson(response);
         notifyListeners();
 
-        await SessionManager.saveAccessToken(_user!.accessToken.toString());
-        await SessionManager.saveRefreshToken(_user!.refreshToken.toString());
+        // await SessionManager.saveAccessToken(_user!.accessToken.toString());
+        // await SessionManager.saveRefreshToken(_user!.refreshToken.toString());
         await SessionManager.saveUserInfo(_user!);
 
-        String? accessToken = await SessionManager.getAccessToken();
-        String? refreshToken = await SessionManager.getRefreshToken();
+        // String? accessToken = await SessionManager.getAccessToken();
+        // String? refreshToken = await SessionManager.getRefreshToken();
         Map<String, String?> userInfo = await SessionManager.getUserInfo();
 
-        print('Access Token: $accessToken');
-        print('Refresh Token: $refreshToken');
+        // print('Access Token: $accessToken');
+        // print('Refresh Token: $refreshToken');
         print('User Info: $userInfo');
 
         HelperFunctions.showSuccessSnackbar(context, 'User login successfully');
@@ -97,7 +98,7 @@ class UserAuthViewModel extends ChangeNotifier {
         notifyListeners();
       }
     } catch (error) {
-       _errorMessage = "Login failed. Please try again.";
+      _errorMessage = "Login failed. Please try again.";
       _setLoading(false);
       notifyListeners();
     }

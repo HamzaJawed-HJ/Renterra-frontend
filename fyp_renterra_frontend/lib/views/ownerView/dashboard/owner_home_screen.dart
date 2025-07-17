@@ -13,10 +13,17 @@ class OwnerHomeScreen extends StatefulWidget {
 
 class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
   @override
+  void initState() {
+    Provider.of<ProductViewModel>(context, listen: false).getMyProducts();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final productProvider =
-        Provider.of<ProductViewModel>(context, listen: false);
-    final products = productProvider.products;
+    // final productProvider =
+    //     Provider.of<ProductViewModel>(context, listen: false);
+    // final products = productProvider.products;
 
     return Scaffold(
         appBar: AppBar(
@@ -31,35 +38,72 @@ class _OwnerHomeScreenState extends State<OwnerHomeScreen> {
             IconButton(onPressed: () {}, icon: Icon(Icons.account_circle)),
           ],
         ),
-        body: Consumer(
-          builder: (context, value, child) => SingleChildScrollView(
-            padding: EdgeInsets.all(16),
+        body: Consumer<ProductViewModel>(
+          builder: (context, value, child) => Padding(
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildStatsRow(
-                    totalItem: products.length,
-                    rentedItem: products.length - 1),
+                    totalItem: value.products.length,
+                    rentedItem: value.products.length - 1),
                 SizedBox(height: 16),
                 Text("My Listing",
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 SizedBox(height: 10),
-                ...products.map((product) => ProductCard(
-                      product: product,
-                      onView: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) =>
-                                ProductDetailsScreen(productId: product.id),
-                          ),
-                        );
-                      },
-                      onEdit: () {
-                        // Navigate to edit screen (you will add logic later)
-                      },
-                    )),
+
+                Expanded(
+                  child: Consumer<ProductViewModel>(
+                    builder: (context, provider, _) {
+                      if (provider.error != null) {
+                        return Center(child: Text('Error: ${provider.error}'));
+                      }
+
+                      if (provider.products.isEmpty) {
+                        return Center(child: Text('No products found'));
+                      }
+
+                      return RefreshIndicator(
+                        onRefresh: provider.getMyProducts,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: provider.products.length,
+                          itemBuilder: (context, index) {
+                            final product = provider.products[index];
+                            return ProductCard(
+                              product: product,
+                              onView: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => ProductDetailsScreen(
+                                        productId: product.id),
+                                  ),
+                                );
+                              },
+                              onEdit: () {
+                                // Navigate to edit screen (you will add logic later)
+                              },
+                            );
+
+                            //  ListTile(
+                            //   title: Text(product.name),
+                            //   subtitle: Text(product.category),
+                            //   leading: Image.network(
+                            //     '${ApiClient.baseImageUrl}${product.image}',
+                            //     width: 50,
+                            //     errorBuilder: (_, __, ___) =>
+                            //         Icon(Icons.image_not_supported),
+                            //   ),
+                            // );
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                )
+                // ...products.map((product) =>
               ],
             ),
           ),

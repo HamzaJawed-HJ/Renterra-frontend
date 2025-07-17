@@ -8,7 +8,6 @@ class User {
   final String createdAt;
   final String updatedAt;
   final String accessToken;
-  final String refreshToken;
 
   User({
     required this.email,
@@ -20,23 +19,21 @@ class User {
     required this.createdAt,
     required this.updatedAt,
     required this.accessToken,
-    required this.refreshToken,
   });
 
   // Factory constructor to create a User object from a JSON response
   factory User.fromJson(Map<String, dynamic> json) {
+    final user = json['user'];
     return User(
-      email: json['message']['user']['email'],
-      phoneNumber: json['message']['user']['phoneNumber'],
-      fullName: json['message']['user']['fullName'],
-      cnic: json['message']['user']['cnic'],
-      area: json['message']['user']['area'],
-      role: json['message']['user']['role'],
-      createdAt: json['message']['user']['createdAt'],
-      updatedAt: json['message']['user']['updatedAt'],
-      accessToken: json['message']['accessToken'], // Default empty if null
-      refreshToken: json['message']['refreshToken'], // Default empty if null
-    );
+     email: user['email'],
+      phoneNumber: user['phoneNumber'],
+      fullName: user['fullName'],
+      cnic: user['cnic'],
+      area: user['area'],
+      role: user['role'],
+      createdAt: user['createdAt'],
+      updatedAt: user['updatedAt'],
+      accessToken: json['token'],    );
   }
 
   // Convert a User object to JSON for saving purposes (e.g., for SharedPreferences or API request)
@@ -49,7 +46,6 @@ class User {
       'area': area,
       'role': role,
       'accessToken': accessToken,
-      'refreshToken': refreshToken,
     };
   }
 }

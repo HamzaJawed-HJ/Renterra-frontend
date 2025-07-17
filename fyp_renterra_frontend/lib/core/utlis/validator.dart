@@ -9,7 +9,7 @@ class Validator {
   }
 
   static bool isValidCNIC(String value) {
-    final cnicRegex = RegExp(r'^[0-9]{5}-[0-9]{7}-[0-9]$');
+    final cnicRegex = RegExp(r'^[0-9]{5}[0-9]{7}[0-9]$');
     return cnicRegex.hasMatch(value);
   }
 

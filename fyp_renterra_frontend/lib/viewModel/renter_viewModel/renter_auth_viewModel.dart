@@ -46,7 +46,8 @@ class RenterAuthViewModel extends ChangeNotifier {
 
     _setLoading(false);
 
-    if (response['success']) {
+    if (response.containsKey('message') &&
+        response['message'].toString().toLowerCase().contains('success')) {
       HelperFunctions.showSuccessSnackbar(
           context, 'Renter registered successfully');
       Navigator.pushReplacementNamed(context, RoutesName.renterLoginScreen);
@@ -72,28 +73,26 @@ class RenterAuthViewModel extends ChangeNotifier {
 
       _setLoading(false);
 
-      if (response['success']) {
-
+      if (response['token'] != null &&
+          response['user'] != null &&
+          response['user']['role'] == 'owner') {
         // Create a User object from the response
         renterDetail = RenterModel.fromJson(response);
-        //    print("CNIC: ${_user?.cnic.toString()}");
+        print("Token: ${renterDetail!.accessToken.toString()}");
         notifyListeners();
 
         // Save user data and tokens to session
         await SessionManager.saveAccessToken(
             renterDetail!.accessToken.toString());
-        await SessionManager.saveRefreshToken(
-            renterDetail!.refreshToken.toString());
         await SessionManager.saveRenterInfo(renterDetail!);
 
-        // Verify stored data (optional debugging)
-        String? accessToken = await SessionManager.getAccessToken();
-        String? refreshToken = await SessionManager.getRefreshToken();
-        Map<String, String?> userInfo = await SessionManager.getUserInfo();
+        // // Verify stored data (optional debugging)
+        // String? accessToken = await SessionManager.getAccessToken();
+        // Map<String, String?> userInfo = await SessionManager.getUserInfo();
 
-        print('Access Token: $accessToken');
-        print('Refresh Token: $refreshToken');
-        print('User Info: $userInfo');
+        // print('Access Token: $accessToken');
+        // print('Refresh Token: $refreshToken');
+        // print('User Info: $userInfo');
 
         HelperFunctions.showSuccessSnackbar(context, 'LogIn successfully');
 
@@ -107,8 +106,7 @@ class RenterAuthViewModel extends ChangeNotifier {
         notifyListeners();
       }
     } catch (error) {
-      HelperFunctions.showErrorSnackbar(
-          context, error.toString());
+      HelperFunctions.showErrorSnackbar(context, error.toString());
       _errorMessage = "Login failed. Please try again.";
       _setLoading(false);
       notifyListeners();

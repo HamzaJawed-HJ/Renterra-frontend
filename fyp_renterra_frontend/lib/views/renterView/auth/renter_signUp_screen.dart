@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fyp_renterra_frontend/core/constants/app_colors.dart';
 import 'package:fyp_renterra_frontend/core/utlis/helper_functions.dart';
 import 'package:fyp_renterra_frontend/core/utlis/validator.dart';
@@ -144,6 +145,10 @@ class _RenterSignUpScreenState extends State<RenterSignUpScreen> {
                       controller: _phoneController,
                       icon: Icons.phone,
                       inputType: TextInputType.phone,
+                      inputformator: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(11),
+                      ],
                       validation_text: "Phone number is required",
                       customValidator: Validator.validatePhone,
                     ),
@@ -167,6 +172,10 @@ class _RenterSignUpScreenState extends State<RenterSignUpScreen> {
                     CustomInputField(
                       title: "CNIC Number",
                       controller: _cnicController,
+                      inputformator: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        LengthLimitingTextInputFormatter(13),
+                      ],
                       icon: Icons.credit_card,
                       inputType: TextInputType.number,
                       validation_text: "CNIC is required",

@@ -4,8 +4,10 @@ import 'dart:convert';
 class ApiClient {
   // static final String ipUrl = '192.168.0.34';
   // 192.168.186.226
-  static final String ipUrl = '192.168.0.37';
-  static final String baseUrl = "http://$ipUrl:3000/api/v1";
+  static final String ipUrl = '192.168.137.1';
+  static final String baseUrl = "http://$ipUrl:3000/api";
+
+  static final String baseImageUrl = "http://$ipUrl:3000/uploads/";
 
   // Common POST requests
   static Future<Map<String, dynamic>> post(
@@ -27,7 +29,6 @@ class ApiClient {
       } else {
         final errorData = jsonDecode(response.body);
         return {
-          'success': false,
           'message': errorData['message'],
           'data': errorData,
         };
